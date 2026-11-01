@@ -19,7 +19,7 @@ Definitions:
 ## Stop Source Jobs
 
 1. Locate the installed `personal-memory-system-setup` skill and read the selected source's recipe in `source-setup/`. Use judgement to plan every job that must be disabled.
-2. Disable only jobs dedicated to this source. Do not stop shared discovery, memorization, troubleshooting, backup, or GitHub publishing jobs.
+2. Disable only jobs dedicated to this source. Do not stop shared discovery, memorization, troubleshooting, backup, or Google Drive publishing jobs.
 3. For jobs that are owned by another tool or cannot be automatically deleted, work with the owner to remove them.
 
 ## Remove from Configuration

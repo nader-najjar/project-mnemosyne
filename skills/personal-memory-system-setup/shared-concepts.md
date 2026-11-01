@@ -26,7 +26,7 @@ The memory folder’s configuration is `<memory-folder>/config.json`:
     }
   ],
   "backup_file": null,
-  "github_repository": null
+  "google_drive_publishing": false
 }
 ```
 
@@ -34,7 +34,7 @@ The memory folder’s configuration is `<memory-folder>/config.json`:
 
 `backup_file` is the absolute path to `<backup-folder>/<memory-folder-name>.bundle`, where `<memory-folder-name>` is the memory folder’s final path component. Use `null` when the owner declines backup.
 
-`github_repository` is the private GitHub repository URL used for publishing only committed `memory/`, `always.md`, and `remote-recall.md` with separate history, or `null` when publishing is disabled.
+`google_drive_publishing` is `true` when Google Drive publishing is enabled, or `false` when disabled. The Google Drive copy of the memory is used to allow non-local AI tools to utilize the memory.
 
 ## Source Type Definitions
 
