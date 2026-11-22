@@ -72,8 +72,8 @@ description: Begin personal memory setup by asking which supported AI tools' con
 
 ## Onboard Selected Sources
 
-1. If the owner skipped source selection, skip this section. Otherwise run `$personal-memory-system-onboard-source` once for each selected source, supplying `<memory-folder>` and that source.
-2. After onboarding succeeds, ask the user if they would like to backfill old captures from any onboarded source. Explain that current onboarding will not capture past items. If the user would like to backfill, run `$personal-memory-system-backfill` for that source(s).
+1. If the owner skipped source selection, skip this section. Otherwise use the `personal-memory-system-onboard-source` skill once for each selected source, supplying `<memory-folder>` and that source.
+2. After onboarding succeeds, ask the user if they would like to backfill old captures from any onboarded source. Explain that current onboarding will not capture past items. If the user would like to backfill, use the `personal-memory-system-backfill` skill for that source(s).
 
 ## macOS Permissions for Scheduled Scripts
 
@@ -107,15 +107,15 @@ If scheduled backup below fails with `Operation not permitted`, ask the owner to
 1. Ask: “When should discovery, memorization, and troubleshooting run? Recommended: troubleshooting hourly at minute :00, discovery hourly at minute :10, and memorization every hour at minutes :20 and :45, in your local timezone.” Explain that this gives discovery 10 minutes before memorization starts, and each memorization run 25 minutes before the next discovery or memorization run. Wait for the owner's answer and confirm all three schedules and the timezone. Explain that troubleshooting checks locks at least one hour old, leaves active runs and uncertain cases unchanged, and discards uncommitted work only after confirming abandonment.
 2. Ask which model and reasoning effort to use for each of discovery, memorization, and troubleshooting. Wait for the owner's answer and confirm all three choices.
 3. Follow the current AI tool's recipe in [schedulers/](schedulers/), supplying the absolute `<memory-folder>` path and the approved schedules, timezone, models, reasoning effort, and local execution for these jobs:
-   - **Personal Memory Discover:** `$personal-memory-system-discover "<memory-folder>"`
-   - **Personal Memory Memorize:** `$personal-memory-system-memorize "<memory-folder>"`
-   - **Personal Memory Troubleshoot:** `$personal-memory-system-troubleshoot "<memory-folder>"`
+   - **Personal Memory Discover:** `Use the personal-memory-system-discover skill with "<memory-folder>".`
+   - **Personal Memory Memorize:** `Use the personal-memory-system-memorize skill with "<memory-folder>".`
+   - **Personal Memory Troubleshoot:** `Use the personal-memory-system-troubleshoot skill with "<memory-folder>".`
 
 ## Explain How to Use Your Memory
 
 Give the owner this short guide, using their actual memory folder and configured tools:
 
-- Start a new chat with `$personal-memory-system-recall <topics>` when you want remembered context.
+- Start a new chat with `Use the personal-memory-system-recall skill with <topics>.` when you want remembered context.
 - Teach through ordinary conversations: explain your preferences, decisions, reasons, and corrections. Conversations from the configured sources are processed on the schedules set up above; new information may take time to become available to recall.
 - To remember something from a document, website, or other source, ask the chat to read it and discuss what matters. The material must appear in the conversation or its tool results; sharing a link alone does not capture its contents.
 - Keep standing instructions in the resource linked from `always.md`, with personal exceptions in that file. You maintain these instructions; memorization does not update them.

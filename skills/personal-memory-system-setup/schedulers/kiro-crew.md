@@ -10,7 +10,7 @@ Create separate scheduled jobs, each with a fresh session.
 ## Procedure
 
 1. **Resolve the schedules.** Convert each approved schedule to a five-field cron expression.
-2. **Create the jobs.** Run the following shell command for each supplied job, replacing the placeholders with its inputs. Quote each value as a single literal shell argument, preserving the prompt's `$` skill invocation and any quoted paths.
+2. **Create the jobs.** Run the following shell command for each supplied job, replacing the placeholders with its inputs. Quote each value as a single literal shell argument, preserving the prompt's exact text and any quoted paths.
 
    ```sh
    kirocrew cron add '<name>' '<prompt>' --cron '<cron-expression>' --timezone '<timezone>' --model '<model>' --approval-mode auto --silent --hide-in-chat --no-persistent-session --no-minimal-context --timeout-secs 3600
