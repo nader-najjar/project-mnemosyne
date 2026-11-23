@@ -93,25 +93,35 @@ Citations are relative links to captured conversations, with record identifiers 
 
 ## Commit Changes
 
-Run `git add .` from `<memory-folder>` and commit with a message describing the operation. Skip the commit if nothing changed.
+Follow `Verify Lock`. If it returns `false`, do not commit, discard anything, or touch the lock; skip `Release Lock`, report the lost lease, and stop.
+
+Otherwise run `git add .` from `<memory-folder>` and commit with a message describing the operation. Skip the commit if nothing changed.
 
 ## Lock Owner
 
 Each acquired lock contains only a regular, non-symlink `.lock/owner.json`:
 
 ```json
-{"token": "<new UUID>", "tool": "<tool name>", "session_id": "<current session ID>"}
+{"token": "<new UUID>", "tool": "<tool name>", "acquired_at": "<ISO 8601 UTC timestamp>"}
 ```
 
-Record your current session ID, using judgment based on the tool.
+Record the time of acquisition.
+
+## Lease
+
+Every run must finish within 30 minutes of acquiring the lock. A lock is abandoned when its `owner.json` `acquired_at`, or the lock directory's modification time if the record is missing or invalid, is more than one hour old.
 
 ## Acquire Lock
 
-1. Prepare a fresh `Lock Owner` record. If the current session ID is unavailable, report it and return `false`.
+1. Prepare a fresh `Lock Owner` record.
 2. Acquire the lock with `mkdir "<memory-folder>/.lock"`. If it fails, return `false`. Retain the directory's identity and your token.
 3. Create `owner.json` exclusively inside it and read it back to verify the record. On failure, remove only your newly created owner file, then `rmdir` the same directory and return `false`. Report cleanup failures without deleting unexpected contents.
 4. Run `git -C "<memory-folder>" status --porcelain=v1 --untracked-files=all`. If it fails or returns any output, release the lock and return `false`.
 5. Return `true`.
+
+## Verify Lock
+
+Verify `.lock/owner.json` still exists as a regular, non-symlink file containing your saved token. Return `true` if so; otherwise you have lost the lease, so return `false`.
 
 ## Release Lock
 

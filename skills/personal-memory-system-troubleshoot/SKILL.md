@@ -9,13 +9,12 @@ description: Recover abandoned personal memory runs so scheduled processing can 
 
 ## Lock exists
 
-1. Inspect the lock directory’s modification time to determine its age. If it is less than one hour old, leave the files unchanged and stop.
-2. Read `.lock/owner.json` using `Lock Owner` in `<memory-folder>/operations/shared/shared-concepts.md`. Save its token and the directory's identity. Check the recorded session through that tool's supported status lookup. If the record is missing or invalid, lookup is unavailable or inconclusive, or any work in the session is active, leave files and lock unchanged and stop. Absence from a run list is not proof of termination; never stop an active run. Require positive evidence that the session has stopped and no writer or recovery is active.
-3. Keep the lock in place and recheck its identity and unchanged owner record. Discard uncommitted work and return to the last commit:
+1. Read `.lock/owner.json` using `Lock Owner` in `<memory-folder>/operations/shared/shared-concepts.md`. Save its token and the directory's identity. If the lock is not abandoned under `Lease` in the same file, leave the files unchanged and stop.
+2. Keep the lock in place and recheck its identity and unchanged owner record. Discard uncommitted work and return to the last commit:
    ```sh
    git -C "<memory-folder>" reset --hard HEAD && git -C "<memory-folder>" clean -fd
    ```
-4. Confirm Git is clean, then follow `Release Lock` in `<memory-folder>/operations/shared/shared-concepts.md`, using the abandoned owner's token verified above.
+3. Confirm Git is clean, then follow `Release Lock` in `<memory-folder>/operations/shared/shared-concepts.md`, using the abandoned owner's token verified above.
 
 ## No lock exists
 
